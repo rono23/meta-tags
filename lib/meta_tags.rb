@@ -33,5 +33,10 @@ require 'meta_tags/content_tag'
 require 'meta_tags/text_normalizer'
 require 'meta_tags/view_helper'
 
-ActionView::Base.send :include, MetaTags::ViewHelper
-ActionController::Base.send :include, MetaTags::ControllerHelper
+ActiveSupport.on_load(:action_view) do
+  include MetaTags::ViewHelper
+end
+
+ActiveSupport.on_load(:action_controller) do
+  prepend MetaTags::ControllerHelper
+end
